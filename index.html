@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elizabethtown Fitness Club | Your Local Gym</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a1628;
+            --blue: #1e40af;
+            --blue-light: #3b82f6;
+            --blue-pale: #dbeafe;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-400: #94a3b8;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-800);
+            background: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--navy);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        .nav-cta {
+            background: var(--blue);
+            color: var(--white) !important;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+        }
+
+        .nav-cta:hover {
+            background: var(--navy);
+            color: var(--white) !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text h1 span {
+            color: var(--blue-light);
+        }
+
+        .hero-text p {
+            color: var(--gray-200);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 450px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--navy);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--navy);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+
+        .hero-card h3 {
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--blue);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--gray-600);
+        }
+
+        /* Schedule Section */
+        .schedule {
+            background: var(--gray-50);
+        }
+
+        .schedule-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .schedule-day {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .day-header {
+            background: var(--navy);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+        }
+
+        .day-classes {
+            padding: 1rem 1.5rem;
+        }
+
+        .class-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .class-item:last-child {
+            border-bottom: none;
+        }
+
+        .class-name {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .class-time {
+            color: var(--blue);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .price-card {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .price-card:hover {
+            border-color: var(--blue);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .price-card.featured {
+            background: var(--navy);
+            border-color: var(--navy);
+            position: relative;
+        }
+
+        .price-card.featured * {
+            color: var(--white);
+        }
+
+        .price-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--blue-light);
+            color: var(--white);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .price-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-amount {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--blue);
+            line-height: 1;
+        }
+
+        .price-card.featured .price-amount {
+            color: var(--blue-light);
+        }
+
+        .price-period {
+            color: var(--gray-400);
+            margin-bottom: 1.5rem;
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .price-features li {
+            padding: 0.5rem 0;
+            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .price-card.featured .price-features li {
+            color: var(--gray-200);
+        }
+
+        .price-features li::before {
+            content: '✓';
+            color: var(--blue);
+            font-weight: bold;
+        }
+
+        .price-card.featured .price-features li::before {
+            color: var(--blue-light);
+        }
+
+        .price-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--blue);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .price-btn:hover {
+            background: var(--navy);
+        }
+
+        .price-card.featured .price-btn {
+            background: var(--white);
+            color: var(--navy);
+        }
+
+        .price-card.featured .price-btn:hover {
+            background: var(--blue-pale);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--gray-50);
+        }
+
+        .contact-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--blue);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-text strong {
+            display: block;
+            color: var(--navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-text span {
+            color: var(--gray-600);
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--blue);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: var(--navy);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: var(--gray-400);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">
+            <span class="logo-icon">E</span>
+            ETOWN FITNESS
+        </a>
+        <ul class="nav-links">
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact" class="nav-cta">Join Now</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>YOUR LOCAL <span>FITNESS</span> COMMUNITY</h1>
+                <p>No frills, no gimmicks — just a solid gym with the equipment you need to get results. Serving Elizabethtown since day one.</p>
+                <div class="hero-buttons">
+                    <a href="#pricing" class="btn btn-primary">View Memberships</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-card">
+                    <h3>WHY ETOWN FITNESS?</h3>
+                    <div class="stat-grid">
+                        <div class="stat">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Access</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">5K+</div>
+                            <div class="stat-label">Sq. Feet</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Machines</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">$29</div>
+                            <div class="stat-label">Starting At</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="schedule" id="schedule">
+        <div class="section-header">
+            <h2>CLASS SCHEDULE</h2>
+            <p>Drop in anytime — no reservations needed. All classes included with membership.</p>
+        </div>
+        <div class="schedule-grid">
+            <div class="schedule-day">
+                <div class="day-header">MONDAY - WEDNESDAY - FRIDAY</div>
+                <div class="day-classes">
+                    <div class="class-item">
+                        <span class="class-name">Morning Boot Camp</span>
+                        <span class="class-time">6:00 AM</span>
+                    </div>
+                    <div class="class-item">
+                        <span class="class-name">Spin Class</span>
+                        <span class="class-time">12:00 PM</span>
+                    </div>
+                    <div class="class-item">
+                        <span class="class-name">Strength Training</span>
+                        <span class="class-time">5:30 PM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="schedule-day">
+                <div class="day-header">TUESDAY - THURSDAY</div>
+                <div class="day-classes">
+                    <div class="class-item">
+                        <span class="class-name">Yoga Flow</span>
+                        <span class="class-time">9:00 AM</span>
+                    </div>
+                    <div class="class-item">
+                        <span class="class-name">HIIT Circuit</span>
+                        <span class="class-time">6:00 PM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="schedule-day">
+                <div class="day-header">SATURDAY</div>
+                <div class="day-classes">
+                    <div class="class-item">
+                        <span class="class-name">Weekend Warrior</span>
+                        <span class="class-time">8:00 AM</span>
+                    </div>
+                    <div class="class-item">
+                        <span class="class-name">Open Gym</span>
+                        <span class="class-time">All Day</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="section-header">
+            <h2>SIMPLE PRICING</h2>
+            <p>No contracts, no hidden fees. Cancel anytime.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <div class="price-name">BASIC</div>
+                <div class="price-amount">$29</div>
+                <div class="price-period">per month</div>
+                <ul class="price-features">
+                    <li>Full gym access</li>
+                    <li>Cardio equipment</li>
+                    <li>Free weights area</li>
+                    <li>Locker room access</li>
+                </ul>
+                <button class="price-btn">Get Started</button>
+            </div>
+            <div class="price-card featured">
+                <span class="price-badge">Most Popular</span>
+                <div class="price-name">UNLIMITED</div>
+                <div class="price-amount">$49</div>
+                <div class="price-period">per month</div>
+                <ul class="price-features">
+                    <li>Everything in Basic</li>
+                    <li>All group classes</li>
+                    <li>24/7 key fob access</li>
+                    <li>Guest passes (2/mo)</li>
+                </ul>
+                <button class="price-btn">Get Started</button>
+            </div>
+            <div class="price-card">
+                <div class="price-name">ANNUAL</div>
+                <div class="price-amount">$399</div>
+                <div class="price-period">per year</div>
+                <ul class="price-features">
+                    <li>Everything in Unlimited</li>
+                    <li>2 months FREE</li>
+                    <li>Free t-shirt</li>
+                    <li>Priority class booking</li>
+                </ul>
+                <button class="price-btn">Get Started</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-header">
+            <h2>GET IN TOUCH</h2>
+            <p>Stop by for a tour or drop us a message. We'd love to meet you.</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>FIND US</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-text">
+                        <strong>Address</strong>
+                        <span>626 S Market St<br>Elizabethtown, PA 17022</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-text">
+                        <strong>Phone</strong>
+                        <span>(717) 555-0123</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🕐</div>
+                    <div class="contact-text">
+                        <strong>Hours</strong>
+                        <span>Staffed: Mon-Fri 6am-8pm, Sat 8am-2pm<br>24/7 access for members</span>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks! We\'ll be in touch soon.');">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Interested in a membership? Have questions? Let us know!"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">ELIZABETHTOWN FITNESS CLUB</div>
+        <p>&copy; 2024 Elizabethtown Fitness Club. All rights reserved.</p>
+    </footer>
+</body>
+</html>
