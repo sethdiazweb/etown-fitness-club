@@ -861,6 +861,192 @@
             section { padding: 4rem 1.25rem; }
             .pricing-grid { grid-template-columns: 1fr; }
         }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: 24px;
+            max-width: 480px;
+            width: 100%;
+            padding: 2.5rem;
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            width: 40px; height: 40px;
+            border: none;
+            background: var(--gray-100);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--gray-200);
+            transform: rotate(90deg);
+        }
+
+        .modal-icon {
+            width: 72px; height: 72px;
+            background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .modal h3 {
+            font-size: 2rem;
+            color: var(--navy);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            text-align: center;
+            color: var(--gray-500);
+            margin-bottom: 2rem;
+        }
+
+        .modal-info {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .modal-info-item:last-child { border-bottom: none; }
+
+        .modal-info-item span:first-child {
+            font-size: 1.2rem;
+        }
+
+        .modal-info-item strong {
+            color: var(--navy);
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .modal-btn-secondary {
+            background: var(--gray-100);
+            color: var(--navy);
+            box-shadow: none;
+            margin-top: 0.75rem;
+        }
+
+        .modal-btn-secondary:hover {
+            background: var(--gray-200);
+            box-shadow: none;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--navy);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Clickable items */
+        .contact-item.clickable {
+            cursor: pointer;
+        }
+
+        .contact-item.clickable:hover {
+            background: var(--blue-50);
+        }
+
+        .feature-card {
+            cursor: pointer;
+        }
+
+        .class-item {
+            cursor: pointer;
+        }
+
+        .class-item:hover .class-name {
+            color: var(--blue-600);
+        }
     </style>
 </head>
 <body>
@@ -887,7 +1073,7 @@
                 <p class="animate-fade-up delay-2">No frills, no gimmicks — just a solid gym with quality equipment and a community that shows up. Serving Elizabethtown since day one.</p>
                 <div class="hero-buttons animate-fade-up delay-3">
                     <a href="#pricing" class="btn btn-primary">View Memberships →</a>
-                    <a href="#contact" class="btn btn-secondary">Take a Tour</a>
+                    <a href="#" class="btn btn-secondary" onclick="openModal('tour'); return false;">Take a Tour</a>
                 </div>
             </div>
             <div class="hero-image animate-fade-up delay-4">
@@ -977,7 +1163,7 @@
                 <div class="price-amount" style="font-size:2.5rem;">Call for Rates</div>
                 <div class="price-period">monthly options available</div>
                 <ul class="price-features"><li>Full gym access</li><li>All cardio & weights</li><li>Group fitness classes</li><li>Locker room access</li></ul>
-                <button class="price-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Info</button>
+                <button class="price-btn" onclick="openModal('individual')">Get Info</button>
             </div>
             <div class="price-card featured">
                 <span class="price-badge">Best Value</span>
@@ -986,7 +1172,7 @@
                 <div class="price-amount" style="font-size:2.5rem;">Call for Rates</div>
                 <div class="price-period">save with family plans</div>
                 <ul class="price-features"><li>Multiple family members</li><li>All gym amenities</li><li>Group classes included</li><li>Personal training available</li></ul>
-                <button class="price-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Info</button>
+                <button class="price-btn" onclick="openModal('family')">Get Info</button>
             </div>
             <div class="price-card">
                 <div class="price-icon">⭐</div>
@@ -994,7 +1180,7 @@
                 <div class="price-amount" style="font-size:2.5rem;">Call for Rates</div>
                 <div class="price-period">55+ discounted rates</div>
                 <ul class="price-features"><li>Silver & Fit programs</li><li>Zumba Gold classes</li><li>Full gym access</li><li>Supportive community</li></ul>
-                <button class="price-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Info</button>
+                <button class="price-btn" onclick="openModal('senior')">Get Info</button>
             </div>
         </div>
     </section>
@@ -1034,8 +1220,8 @@
             <div class="contact-info">
                 <h3>FIND US</h3>
                 <p>Located right on Market Street with easy parking.</p>
-                <div class="contact-item"><div class="contact-icon">📍</div><div class="contact-text"><strong>Address</strong><span>626 S. Market Street<br>Elizabethtown, PA 17022</span></div></div>
-                <div class="contact-item"><div class="contact-icon">📞</div><div class="contact-text"><strong>Phone</strong><span>(717) 367-3327</span></div></div>
+                <div class="contact-item clickable" onclick="openMaps()"><div class="contact-icon">📍</div><div class="contact-text"><strong>Address</strong><span>626 S. Market Street<br>Elizabethtown, PA 17022</span></div></div>
+                <div class="contact-item clickable" onclick="callPhone()"><div class="contact-icon">📞</div><div class="contact-text"><strong>Phone</strong><span>(717) 367-3327</span></div></div>
                 <div class="contact-item"><div class="contact-icon">🕐</div><div class="contact-text"><strong>Hours</strong><span>Mon-Thu: 5AM-9PM | Fri: 5AM-7PM<br>Sat-Sun: 7AM-4PM</span></div></div>
             </div>
             <form class="contact-form" id="contactForm">
@@ -1062,6 +1248,22 @@
         <div class="footer-bottom"><p>© 2024 Elizabethtown Fitness Club. All rights reserved. | 626 S Market St, Elizabethtown, PA 17022</p></div>
     </footer>
 
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-icon" id="modalIcon"></div>
+            <h3 id="modalTitle"></h3>
+            <p class="modal-subtitle" id="modalSubtitle"></p>
+            <div class="modal-info" id="modalInfo"></div>
+            <button class="modal-btn" id="modalCta"></button>
+            <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
     <script>
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
@@ -1082,6 +1284,122 @@
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             this.outerHTML = '<div style="text-align:center;padding:3rem;background:var(--white);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.08);"><div style="font-size:4rem;margin-bottom:1rem;">✓</div><h3 style="font-family:Bebas Neue,sans-serif;font-size:2rem;color:#0f172a;margin-bottom:0.5rem;">MESSAGE SENT!</h3><p style="color:#64748b;">We\'ll get back to you within 24 hours.</p></div>';
+        });
+
+        // Modal data (all hardcoded, no user input)
+        const modalData = {
+            individual: { icon: '👤', title: 'INDIVIDUAL MEMBERSHIP', subtitle: 'Perfect for solo fitness enthusiasts', items: ['Full gym access 7 days a week', 'All cardio & weight equipment', 'Group fitness classes included', 'Locker room access'], cta: 'Call Now: (717) 367-3327', action: 'call' },
+            family: { icon: '👨‍👩‍👧', title: 'FAMILY MEMBERSHIP', subtitle: 'Best value for families of all sizes', items: ['Multiple family members included', 'All gym amenities', 'Group classes for everyone', 'Personal training available'], cta: 'Call Now: (717) 367-3327', action: 'call' },
+            senior: { icon: '⭐', title: 'SENIOR MEMBERSHIP', subtitle: 'Special rates for ages 55+', items: ['Silver & Fit program accepted', 'Zumba Gold classes', 'Full gym access', 'Supportive community'], cta: 'Call Now: (717) 367-3327', action: 'call' },
+            tour: { icon: '🏋️', title: 'SCHEDULE A TOUR', subtitle: 'Come see our facility in person!', items: ['626 S. Market Street, Elizabethtown', 'Mon-Thu: 5AM-9PM', 'Fri: 5AM-7PM | Sat-Sun: 7AM-4PM', 'Call ahead or just stop by!'], cta: 'Call to Schedule: (717) 367-3327', action: 'call' }
+        };
+
+        const featureData = {
+            'FREE WEIGHTS': { icon: '🏋️', subtitle: 'Build strength your way', items: ['Dumbbells from 5-100+ lbs', 'Olympic barbells & plates', 'Multiple squat racks', 'Flat & incline benches'] },
+            'CARDIO ZONE': { icon: '🚴', subtitle: 'Get your heart pumping', items: ['Treadmills with screens', 'Elliptical machines', 'Stationary bikes', 'Rowing machines'] },
+            'STRENGTH MACHINES': { icon: '💪', subtitle: 'Targeted muscle training', items: ['Full circuit of machines', 'Chest, back, shoulders', 'Legs & core equipment', 'Cable machines'] },
+            'GROUP CLASSES': { icon: '🧘', subtitle: 'Workout together', items: ['Spin classes', 'Yoga sessions', 'HIIT training', 'All included with membership!'] },
+            'INDOOR GOLF': { icon: '⛳', subtitle: 'Year-round golf simulator', items: ['Practice your swing anytime', 'Virtual course play', 'Weather-proof golfing', 'Great for all skill levels'] },
+            'WOMEN\'S FITNESS': { icon: '👩', subtitle: 'Programs designed for women', items: ['Dedicated programs', 'Supportive environment', 'Personal goal setting', 'Expert guidance'] }
+        };
+
+        let currentModalAction = 'close';
+
+        function openModal(type, name, time) {
+            const overlay = document.getElementById('modalOverlay');
+            let data;
+
+            if (type === 'feature' && featureData[name]) {
+                data = featureData[name];
+                data.title = name;
+                data.cta = 'Got it!';
+                currentModalAction = 'close';
+            } else if (type === 'class') {
+                data = { icon: '📅', title: name, subtitle: time ? 'Scheduled at ' + time : 'Check schedule', items: ['Included with membership', 'No reservation needed', 'All fitness levels welcome', 'Just show up and join!'], cta: 'View Full Schedule' };
+                currentModalAction = 'schedule';
+            } else if (modalData[type]) {
+                data = modalData[type];
+                currentModalAction = data.action;
+            } else {
+                return;
+            }
+
+            document.getElementById('modalIcon').textContent = data.icon;
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalSubtitle').textContent = data.subtitle;
+            document.getElementById('modalCta').textContent = data.cta;
+
+            // Build info items using DOM methods
+            const infoEl = document.getElementById('modalInfo');
+            infoEl.replaceChildren();
+            data.items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'modal-info-item';
+                const checkSpan = document.createElement('span');
+                checkSpan.textContent = '✓';
+                const textSpan = document.createElement('span');
+                textSpan.textContent = item;
+                div.appendChild(checkSpan);
+                div.appendChild(textSpan);
+                infoEl.appendChild(div);
+            });
+
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function handleCtaClick() {
+            if (currentModalAction === 'call') {
+                callPhone();
+            } else if (currentModalAction === 'schedule') {
+                document.getElementById('schedule').scrollIntoView({behavior:'smooth'});
+                closeModal();
+            } else {
+                closeModal();
+            }
+        }
+
+        document.getElementById('modalCta').addEventListener('click', handleCtaClick);
+        document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+        function callPhone() {
+            window.location.href = 'tel:+17173673327';
+            showToast('📞 Calling (717) 367-3327...');
+        }
+
+        function openMaps() {
+            window.open('https://www.google.com/maps/search/?api=1&query=626+S+Market+Street+Elizabethtown+PA+17022', '_blank');
+            showToast('📍 Opening in Google Maps...');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Feature card clicks
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const name = this.querySelector('h3').textContent;
+                openModal('feature', name);
+            });
+        });
+
+        // Class item clicks
+        document.querySelectorAll('.class-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const name = this.querySelector('.class-name').textContent;
+                const time = this.querySelector('.class-time').textContent;
+                openModal('class', name, time);
+            });
         });
     </script>
 </body>
